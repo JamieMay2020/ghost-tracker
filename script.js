@@ -1,8 +1,7 @@
 // Ghost Tracker - Updated Frontend with Backend Integration
 
 // Backend configuration
-// Change this line:
-const BACKEND_URL = 'https://7f09-185-192-16-54.ngrok-free.app'; // Change this to your backend URL
+const BACKEND_URL = 'http://localhost:3001'; // Change this to your backend URL
 
 // Data source from data.js file
 let data = {
@@ -11,15 +10,9 @@ let data = {
 };
 
 // Fetch wallet balance from backend
-// Add this header to all your fetch requests
-// Update fetchWalletBalance function
 async function fetchWalletBalance(address) {
     try {
-        const response = await fetch(`${BACKEND_URL}/api/balance/${address}`, {
-            headers: {
-                'ngrok-skip-browser-warning': 'true'
-            }
-        });
+        const response = await fetch(`${BACKEND_URL}/api/balance/${address}`);
         
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -38,10 +31,10 @@ async function fetchWalletBalance(address) {
     }
 }
 
-// Update scanWalletBalances function
+// Scan multiple wallets with progress updates using batch endpoint
 async function scanWalletBalances(wallets, progressCallback) {
     const results = [];
-    const batchSize = 5;
+    const batchSize = 5; // Process 5 wallets at a time
     
     for (let i = 0; i < wallets.length; i += batchSize) {
         const batch = wallets.slice(i, Math.min(i + batchSize, wallets.length));
@@ -54,27 +47,52 @@ async function scanWalletBalances(wallets, progressCallback) {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'ngrok-skip-browser-warning': 'true'
                 },
                 body: JSON.stringify({ addresses })
             });
             
-            // ... rest of the function
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                // Match results with wallet data
+                batch.forEach((wallet, index) => {
+                    const result = data.results.find(r => r.address === wallet.address);
+                    if (result) {
+                        results.push({
+                            ...wallet,
+                            balance: result.balance,
+                            lastUpdated: new Date().toISOString(),
+                            status: result.status
+                        });
+                    }
+                });
+            }
         } catch (error) {
-            // ... error handling
+            console.error(`Failed to fetch batch starting at ${i}:`, error);
+            // Add error results for this batch
+            batch.forEach(wallet => {
+                results.push({
+                    ...wallet,
+                    balance: wallet.balance || 0,
+                    lastUpdated: new Date().toISOString(),
+                    status: 'error',
+                    error: error.message
+                });
+            });
         }
     }
+    
     return results;
 }
 
-// Update checkBackendHealth function
+// Check backend health on startup
 async function checkBackendHealth() {
     try {
-        const response = await fetch(`${BACKEND_URL}/health`, {
-            headers: {
-                'ngrok-skip-browser-warning': 'true'
-            }
-        });
+        const response = await fetch(`${BACKEND_URL}/health`);
         const data = await response.json();
         console.log('Backend health check:', data);
         return true;
@@ -497,7 +515,7 @@ function createAlertItem(transfer) {
             </div>
             <div class="alert-meta">
                 <span class="alert-amount">${transfer.amount.toFixed(2)} SOL</span>
-                <span class="alert-time">${timeAgo}</span>
+
             </div>
         </div>
     `;
@@ -591,7 +609,6 @@ function showTransferDetails(transfer) {
         fromAddress: document.getElementById('from-address'),
         toAddress: document.getElementById('to-address'),
         signature: document.getElementById('tx-signature'),
-        time: document.getElementById('tx-time'),
         solscanLink: document.getElementById('solscan-link'),
         twitterBtn: document.getElementById('share-twitter')
     };
