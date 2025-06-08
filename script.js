@@ -1,7 +1,7 @@
 // Ghost Tracker - Updated Frontend with Backend Integration
 
 // Backend configuration
-const BACKEND_URL = 'http://localhost:3001'; // Change this to your backend URL
+const BACKEND_URL = 'https://7f09-185-192-16-54.ngrok-free.app'; // Change this to your backend URL
 
 // Data source from data.js file
 let data = {
@@ -10,21 +10,15 @@ let data = {
 };
 
 // Fetch wallet balance from backend
+// Add this header to all your fetch requests
 async function fetchWalletBalance(address) {
     try {
-        const response = await fetch(`${BACKEND_URL}/api/balance/${address}`);
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const result = await response.json();
-        
-        if (result.success) {
-            return result.balance;
-        } else {
-            throw new Error(result.message || 'Failed to fetch balance');
-        }
+        const response = await fetch(`${BACKEND_URL}/api/balance/${address}`, {
+            headers: {
+                'ngrok-skip-browser-warning': 'true'
+            }
+        });
+        // ... rest of your code
     } catch (error) {
         console.error('Error fetching balance:', error);
         throw error;
