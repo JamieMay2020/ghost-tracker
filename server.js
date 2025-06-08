@@ -10,7 +10,9 @@ const HELIUS_API_KEY = process.env.HELIUS_API_KEY || '361627b6-ee29-4f85-aa18-71
 const HELIUS_RPC_URL = `https://mainnet.helius-rpc.com/?api-key=${HELIUS_API_KEY}`;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: '*'  // Allow all origins for testing
+}));
 app.use(express.json());
 
 // Health check endpoint
