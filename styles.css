@@ -1,0 +1,868 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #ffffff;
+    --secondary-color: #666666;
+    --danger-color: #ff0000;
+    --success-color: #00ff00;
+    --warning-color: #ffaa00;
+    --bg-color: #000000;
+    --card-bg: #0a0a0a;
+    --text-primary: #ffffff;
+    --text-secondary: #666666;
+    --border-color: #1a1a1a;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+}
+
+/* Container */
+.container {
+    position: relative;
+    z-index: 10;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 30px;
+}
+
+.logo-container {
+    display: flex;
+    align-items: baseline;
+    gap: 15px;
+}
+
+.logo-container h1 {
+    font-size: 24px;
+    font-weight: normal;
+    letter-spacing: 4px;
+    color: var(--primary-color);
+}
+
+.subtitle {
+    font-size: 10px;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+}
+
+/* Navigation */
+.nav {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 5px 0;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary-color);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* Sections */
+.section {
+    display: none;
+    min-height: 500px;
+}
+
+.section.active {
+    display: block !important;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: normal;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.section-description {
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+    max-width: 600px;
+}
+
+.subsection-title {
+    font-size: 14px;
+    font-weight: normal;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+/* Status Bar */
+.status-bar {
+    display: flex;
+    gap: 40px;
+    padding: 15px 20px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    margin-bottom: 30px;
+    align-items: center;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-label {
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+}
+
+.status-value {
+    font-size: 14px;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* Alerts Container */
+.alerts-container {
+    max-width: 100%;
+}
+
+.alerts-feed {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    min-height: 400px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.alert-item {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.alert-item:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.alert-item.critical {
+    border-left: 3px solid var(--danger-color);
+}
+
+.alert-item.warning {
+    border-left: 3px solid var(--warning-color);
+}
+
+.alert-content {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 150px 1fr 150px;
+    gap: 20px;
+    align-items: center;
+}
+
+.alert-wallet {
+    font-size: 12px;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.alert-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.alert-message {
+    font-size: 12px;
+    color: var(--text-primary);
+    text-transform: uppercase;
+}
+
+.alert-addresses {
+    font-size: 10px;
+    color: var(--text-secondary);
+}
+
+.alert-meta {
+    text-align: right;
+}
+
+.alert-amount {
+    font-size: 14px;
+    color: var(--primary-color);
+    font-weight: bold;
+    display: block;
+}
+
+.alert-time {
+    font-size: 10px;
+    color: var(--text-secondary);
+    display: block;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--text-secondary);
+}
+
+.empty-hint {
+    font-size: 10px;
+    margin-top: 10px;
+    opacity: 0.7;
+}
+
+/* Wallet Stats */
+.wallet-stats {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.wallet-stat-item {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.stat-number {
+    font-size: 24px;
+    color: var(--primary-color);
+}
+
+/* Wallet Grid */
+.wallet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.wallet-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.wallet-card:hover {
+    border-color: var(--text-secondary);
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.wallet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 15px;
+}
+
+.wallet-name {
+    font-size: 14px;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.wallet-address {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    word-break: break-all;
+}
+/* Custom Wallet Styling */
+.wallet-card.custom-wallet {
+    background-color: #0f0f0f;
+    border-color: #2a2a2a;
+    position: relative;
+}
+
+.wallet-card.custom-wallet::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #00ff00 0%, #00aa00 100%);
+}
+
+.wallet-card.custom-wallet:hover {
+    border-color: #00ff00;
+    background-color: rgba(0, 255, 0, 0.02);
+}
+
+.custom-badge {
+    font-size: 9px;
+    color: #00ff00;
+    border: 1px solid #00ff00;
+    padding: 2px 6px;
+    letter-spacing: 1px;
+    margin-left: auto;
+}
+
+.wallet-card.custom-wallet .wallet-name {
+    color: #00ff00;
+}
+
+.wallet-card.custom-wallet .wallet-balance {
+    color: #00ff00;
+}
+/* Transfer Scanner Styles */
+.transfer-scanner-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 20px 0;
+    padding: 15px 20px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+}
+
+.scan-button {
+    background-color: var(--card-bg);
+    border: 1px solid var(--warning-color);
+    color: var(--warning-color);
+    padding: 12px 24px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.scan-button:hover:not(:disabled) {
+    background-color: var(--warning-color);
+    color: var(--bg-color);
+}
+
+.scan-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.scan-info {
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.scanning-animation {
+    text-align: center;
+    color: var(--warning-color);
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+}
+
+/* Transfer type badges */
+.transfer-type {
+    font-size: 9px;
+    padding: 2px 6px;
+    border: 1px solid;
+    margin-right: 5px;
+    text-transform: uppercase;
+}
+
+.transfer-type.sent {
+    color: #ff6666;
+    border-color: #ff6666;
+}
+
+.transfer-type.received {
+    color: #66ff66;
+    border-color: #66ff66;
+}
+
+/* Update alert item for better transfer display */
+.alert-message {
+    display: flex;
+    align-items: center;
+}
+
+
+.wallet-balance {
+    font-size: 18px;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+.wallet-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.wallet-button {
+    font-size: 10px;
+    padding: 5px 10px;
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.wallet-button:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.wallet-button.danger:hover {
+    border-color: var(--danger-color);
+    color: var(--danger-color);
+}
+
+/* Admin Section */
+.admin-container {
+    display: grid;
+    gap: 30px;
+    max-width: 800px;
+}
+
+.admin-section {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 25px;
+}
+
+.admin-section h3 {
+    font-size: 14px;
+    font-weight: normal;
+    letter-spacing: 1px;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-group input {
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--primary-color);
+    padding: 10px 12px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--text-secondary);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.submit-button {
+    background-color: var(--card-bg);
+    border: 1px solid var(--success-color);
+    color: var(--success-color);
+    padding: 12px 20px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.submit-button:hover {
+    background-color: var(--success-color);
+    color: var(--bg-color);
+}
+
+/* Data Management */
+.data-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.data-button {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--primary-color);
+    padding: 12px 20px;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.data-button:hover {
+    border-color: var(--primary-color);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.data-button.danger {
+    border-color: var(--danger-color);
+    color: var(--danger-color);
+}
+
+.data-button.danger:hover {
+    background-color: var(--danger-color);
+    color: var(--bg-color);
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    margin: 5% auto;
+    padding: 30px;
+    border: 1px solid var(--text-secondary);
+    width: 90%;
+    max-width: 700px;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    font-size: 20px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: var(--primary-color);
+}
+
+.modal-title {
+    font-size: 16px;
+    font-weight: normal;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+}
+
+/* Transfer Details */
+.transfer-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.transfer-header h3 {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+.transfer-amount {
+    font-size: 28px;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.address-flow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    gap: 20px;
+}
+
+.address-box {
+    flex: 1;
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    text-align: center;
+}
+
+.address-label {
+    display: block;
+    font-size: 10px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.address-value {
+    font-size: 11px;
+    color: var(--primary-color);
+    word-break: break-all;
+}
+
+.flow-arrow {
+    font-size: 24px;
+    color: var(--text-secondary);
+}
+
+.transfer-meta {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.meta-item {
+    text-align: center;
+}
+
+.meta-label {
+    display: block;
+    font-size: 10px;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.meta-value {
+    font-size: 11px;
+    color: var(--primary-color);
+    word-break: break-all;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.action-button {
+    background-color: var(--card-bg);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 12px 24px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.action-button:hover {
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+}
+
+.action-button.secondary {
+    border-color: var(--text-secondary);
+    color: var(--text-secondary);
+}
+
+.action-button.secondary:hover {
+    background-color: var(--text-secondary);
+    color: var(--bg-color);
+}
+
+.action-button.danger {
+    border-color: var(--danger-color);
+    color: var(--danger-color);
+}
+
+.action-button.danger:hover {
+    background-color: var(--danger-color);
+    color: var(--bg-color);
+}
+
+/* Scanlines Effect */
+.scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 255, 255, 0.01) 2px,
+        rgba(255, 255, 255, 0.01) 4px
+    );
+    pointer-events: none;
+    z-index: 100;
+}
+
+/* Code Instructions */
+.code-instructions {
+    background-color: var(--bg-color);
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+.code-instructions p {
+    margin-bottom: 10px;
+    color: var(--text-secondary);
+}
+
+.code-instructions pre {
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    overflow-x: auto;
+    margin-top: 10px;
+}
+
+.code-instructions code {
+    color: var(--primary-color);
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    line-height: 1.5;
+}
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .nav {
+        gap: 15px;
+    }
+    
+    .status-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .alert-content {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .wallet-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .address-flow {
+        flex-direction: column;
+    }
+    
+    .flow-arrow {
+        transform: rotate(90deg);
+    }
+    
+    .transfer-meta {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-actions {
+        flex-direction: column;
+    }
+    
+    .data-buttons {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GHOST - Whale Wallet Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="matrix-bg"></div>
+    
+    <!-- Ghost Particles -->
+    <div class="ghost-particles"></div>
+    
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-container">
+                <div class="ghost-logo">👻</div>
+                <h1 class="glitch" data-text="GHOST">GHOST</h1>
+            </div>
+            <nav class="nav">
+                <a href="#home" class="nav-link active">HOME</a>
+                <a href="#whales" class="nav-link">WHALES</a>
+                <a href="#alerts" class="nav-link">ALERTS</a>
+                <a href="#history" class="nav-link">HISTORY</a>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h2 class="hero-title">WELCOME TO GHOST MONITOR</h2>
+                <p class="hero-subtitle">Tracking the shadows of crypto whales</p>
+                <div class="stats-container">
+                    <div class="stat-box">
+                        <div class="stat-number" id="tracked-wallets">30</div>
+                        <div class="stat-label">TRACKED WHALES</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number" id="total-volume">$24.5M</div>
+                        <div class="stat-label">24H VOLUME</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number" id="active-alerts">7</div>
+                        <div class="stat-label">ACTIVE ALERTS</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Famous Wallets Section -->
+        <section id="whales" class="whales-section">
+            <h2 class="section-title">FAMOUS WALLETS</h2>
+            <div class="wallet-grid">
+                <!-- Wallet Card 1 -->
+                <div class="wallet-card" data-wallet="0x1234...5678">
+                    <div class="wallet-header">
+                        <span class="wallet-rank">#1</span>
+                        <span class="wallet-name">MEGA WHALE</span>
+                    </div>
+                    <div class="wallet-address">0x1234...5678</div>
+                    <div class="wallet-stats">
+                        <div class="wallet-stat">
+                            <span class="stat-value">$45.2M</span>
+                            <span class="stat-type">HOLDINGS</span>
+                        </div>
+                        <div class="wallet-stat">
+                            <span class="stat-value">142</span>
+                            <span class="stat-type">TRANSFERS</span>
+                        </div>
+                    </div>
+                    <div class="wallet-activity">
+                        <span class="activity-indicator active"></span>
+                        <span class="activity-text">ACTIVE NOW</span>
+                    </div>
+                </div>
+
+                <!-- More wallet cards would be dynamically generated -->
+                <div class="wallet-card" data-wallet="0x9876...5432">
+                    <div class="wallet-header">
+                        <span class="wallet-rank">#2</span>
+                        <span class="wallet-name">SHADOW TRADER</span>
+                    </div>
+                    <div class="wallet-address">0x9876...5432</div>
+                    <div class="wallet-stats">
+                        <div class="wallet-stat">
+                            <span class="stat-value">$32.1M</span>
+                            <span class="stat-type">HOLDINGS</span>
+                        </div>
+                        <div class="wallet-stat">
+                            <span class="stat-value">89</span>
+                            <span class="stat-type">TRANSFERS</span>
+                        </div>
+                    </div>
+                    <div class="wallet-activity">
+                        <span class="activity-indicator"></span>
+                        <span class="activity-text">LAST: 2H AGO</span>
+                    </div>
+                </div>
+
+                <div class="wallet-card add-wallet">
+                    <div class="add-wallet-content">
+                        <span class="add-icon">+</span>
+                        <span class="add-text">ADD WALLET</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Activity Feed -->
+        <section id="activity" class="activity-section">
+            <h2 class="section-title">RECENT GHOSTLY MOVEMENTS</h2>
+            <div class="activity-feed">
+                <div class="activity-item alert">
+                    <span class="activity-time">2 MIN AGO</span>
+                    <span class="activity-icon">⚠️</span>
+                    <span class="activity-description">MEGA WHALE moved 500,000 $PEPE to unknown wallet</span>
+                    <span class="activity-amount">~$125,000</span>
+                </div>
+                <div class="activity-item">
+                    <span class="activity-time">15 MIN AGO</span>
+                    <span class="activity-icon">📤</span>
+                    <span class="activity-description">SHADOW TRADER transferred to Binance</span>
+                    <span class="activity-amount">~$45,000</span>
+                </div>
+                <div class="activity-item">
+                    <span class="activity-time">1H AGO</span>
+                    <span class="activity-icon">📥</span>
+                    <span class="activity-description">NEW WALLET received from multiple sources</span>
+                    <span class="activity-amount">~$230,000</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wallet Detail Modal -->
+        <div id="wallet-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 class="modal-title">WALLET DETAILS</h2>
+                <div class="wallet-detail">
+                    <div class="detail-header">
+                        <h3 id="modal-wallet-name">MEGA WHALE</h3>
+                        <p id="modal-wallet-address">0x1234...5678</p>
+                    </div>
+                    <div class="migration-history">
+                        <h4>MIGRATION HISTORY</h4>
+                        <div class="migration-timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-date">2024-03-15</div>
+                                <div class="timeline-info">
+                                    <span class="old-wallet">0xABCD...1234</span>
+                                    <span class="arrow">→</span>
+                                    <span class="new-wallet">0x1234...5678</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-date">2023-12-01</div>
+                                <div class="timeline-info">
+                                    <span class="old-wallet">0xDEF0...5678</span>
+                                    <span class="arrow">→</span>
+                                    <span class="new-wallet">0xABCD...1234</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wallet-holdings">
+                        <h4>TOP HOLDINGS</h4>
+                        <div class="holdings-list">
+                            <div class="holding-item">
+                                <span class="token-name">$PEPE</span>
+                                <span class="token-amount">125,000,000</span>
+                                <span class="token-value">$2.5M</span>
+                            </div>
+                            <div class="holding-item">
+                                <span class="token-name">$SHIB</span>
+                                <span class="token-amount">5,000,000,000</span>
+                                <span class="token-value">$1.8M</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

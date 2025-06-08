@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GHOST - Solana Whale Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Scanlines Effect -->
+    <div class="scanlines"></div>
+    
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-container">
+                <h1>GHOST</h1>
+                <span class="subtitle">SOLANA WHALE TRACKER</span>
+            </div>
+            <nav class="nav">
+                <a href="#home" class="nav-link active">HOME</a>
+                <a href="#wallets" class="nav-link">WALLETS</a>
+                <a href="#" class="nav-link"></a>
+            </nav>
+        </header>
+
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="alerts-header">
+                <h2 class="section-title">WALLET MIGRATION ALERTS</h2>
+                <p class="section-description">
+                    Monitoring SOL transfers between wallets.
+                </p>
+
+
+            <!-- Stats Bar -->
+            <div class="status-bar">
+                <div class="status-item">
+                    <span class="status-label">TRACKED WALLETS:</span>
+                    <span class="status-value" id="wallet-count">0</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">TOTAL ALERTS:</span>
+                    <span class="status-value" id="alert-count">0</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">24H VOLUME:</span>
+                    <span class="status-value" id="volume-24h">0 SOL</span>
+                </div>
+            </div>
+
+            <!-- Migration Alerts -->
+            <div class="alerts-container">
+                <h3 class="subsection-title">RECENT SOL TRANSFERS: Updated every minute</h3>
+                <div id="alerts-feed" class="alerts-feed">
+                    <div class="empty-state">
+                        <p>NO TRANSFERS RECORDED YET</p>
+                        <p class="empty-hint">Transfer alerts will appear here</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wallets Section -->
+<!-- Wallets Section -->
+<section id="wallets" class="section">
+    <h2 class="section-title">TRACKED WALLETS</h2>
+    
+    <div class="wallet-stats">
+        <span class="wallet-stat-item">
+            <span class="stat-number" id="total-wallets">0</span>
+            <span class="stat-label">WALLETS TRACKED</span>
+        </span>
+        <span class="wallet-stat-item">
+            <span class="stat-number" id="total-balance">0</span>
+            <span class="stat-label">TOTAL SOL</span>
+        </span>
+    </div>
+
+    <!-- Add Wallet Form -->
+    <div class="admin-section">
+        <h3>ADD NEW WALLET</h3>
+        <form class="admin-form" id="add-wallet-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>WALLET NAME</label>
+                    <input type="text" id="wallet-name" placeholder="Enter wallet name" required>
+                </div>
+                <div class="form-group">
+                    <label>WALLET ADDRESS</label>
+                    <input type="text" id="wallet-address" placeholder="Enter Solana address" required>
+                </div>
+            </div>
+            <button type="submit" class="submit-button" id="add-wallet-btn">
+                <span id="add-wallet-text">ADD WALLET & SCAN BALANCE</span>
+            </button>
+        </form>
+    </div>
+
+    <!-- Scan Progress -->
+    <div id="scan-progress" class="scan-progress" style="display: none;">
+        <div class="progress-header">
+            <h3>SCANNING WALLET BALANCES...</h3>
+            <span id="progress-text">0/0</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="current-wallet" id="current-wallet">Initializing...</div>
+    </div>
+
+    <!-- Refresh All Balances Button -->
+    <div class="wallet-actions-bar">
+        <button id="refresh-all-btn" class="data-button">
+            <span id="refresh-text">REFRESH ALL BALANCES</span>
+        </button>
+        <span class="last-update">LAST UPDATE: <span id="last-update-time">NEVER</span></span>
+    </div>
+
+    <!-- Wallet Grid -->
+    <div id="wallet-grid" class="wallet-grid">
+        <div class="empty-state">
+            <p>NO WALLETS TRACKED</p>
+            <p class="empty-hint">Add wallets above to start tracking</p>
+        </div>
+    </div>
+</section>
+            
+
+
+
+        <!-- Transfer Detail Modal -->
+        <div id="transfer-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 class="modal-title">TRANSFER DETAILS</h2>
+                <div class="transfer-detail">
+                    <div class="transfer-header">
+                        <h3 id="transfer-wallet-name">WALLET</h3>
+                        <p class="transfer-amount" id="transfer-amount">0 SOL</p>
+                    </div>
+                    
+                    <div class="address-flow">
+                        <div class="address-box">
+                            <span class="address-label">FROM</span>
+                            <span class="address-value" id="from-address">--</span>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="address-box">
+                            <span class="address-label">TO</span>
+                            <span class="address-value" id="to-address">--</span>
+                        </div>
+                    </div>
+
+                    <div class="transfer-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">SIGNATURE</span>
+                            <span class="meta-value" id="tx-signature">--</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">TIME</span>
+                            <span class="meta-value" id="tx-time">--</span>
+                        </div>
+                    </div>
+
+                    <div class="modal-actions">
+                        <a href="#" id="solscan-link" target="_blank" class="action-button">
+                            VIEW ON SOLSCAN
+                        </a>
+                        <button id="share-twitter" class="action-button secondary">
+                            SHARE ON TWITTER
+                        </button>
+                        <button id="delete-transfer" class="action-button danger">
+                            DELETE TRANSFER
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
