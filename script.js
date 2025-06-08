@@ -1,6 +1,7 @@
 // Ghost Tracker - Updated Frontend with Backend Integration
 
 // Backend configuration
+// Change this line:
 const BACKEND_URL = 'https://7f09-185-192-16-54.ngrok-free.app'; // Change this to your backend URL
 
 // Data source from data.js file
@@ -11,6 +12,7 @@ let data = {
 
 // Fetch wallet balance from backend
 // Add this header to all your fetch requests
+// Update fetchWalletBalance function
 async function fetchWalletBalance(address) {
     try {
         const response = await fetch(`${BACKEND_URL}/api/balance/${address}`, {
@@ -18,17 +20,28 @@ async function fetchWalletBalance(address) {
                 'ngrok-skip-browser-warning': 'true'
             }
         });
-        // ... rest of your code
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            return result.balance;
+        } else {
+            throw new Error(result.message || 'Failed to fetch balance');
+        }
     } catch (error) {
         console.error('Error fetching balance:', error);
         throw error;
     }
 }
 
-// Scan multiple wallets with progress updates using batch endpoint
+// Update scanWalletBalances function
 async function scanWalletBalances(wallets, progressCallback) {
     const results = [];
-    const batchSize = 5; // Process 5 wallets at a time
+    const batchSize = 5;
     
     for (let i = 0; i < wallets.length; i += batchSize) {
         const batch = wallets.slice(i, Math.min(i + batchSize, wallets.length));
@@ -41,52 +54,27 @@ async function scanWalletBalances(wallets, progressCallback) {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'ngrok-skip-browser-warning': 'true'
                 },
                 body: JSON.stringify({ addresses })
             });
             
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            
-            const data = await response.json();
-            
-            if (data.success) {
-                // Match results with wallet data
-                batch.forEach((wallet, index) => {
-                    const result = data.results.find(r => r.address === wallet.address);
-                    if (result) {
-                        results.push({
-                            ...wallet,
-                            balance: result.balance,
-                            lastUpdated: new Date().toISOString(),
-                            status: result.status
-                        });
-                    }
-                });
-            }
+            // ... rest of the function
         } catch (error) {
-            console.error(`Failed to fetch batch starting at ${i}:`, error);
-            // Add error results for this batch
-            batch.forEach(wallet => {
-                results.push({
-                    ...wallet,
-                    balance: wallet.balance || 0,
-                    lastUpdated: new Date().toISOString(),
-                    status: 'error',
-                    error: error.message
-                });
-            });
+            // ... error handling
         }
     }
-    
     return results;
 }
 
-// Check backend health on startup
+// Update checkBackendHealth function
 async function checkBackendHealth() {
     try {
-        const response = await fetch(`${BACKEND_URL}/health`);
+        const response = await fetch(`${BACKEND_URL}/health`, {
+            headers: {
+                'ngrok-skip-browser-warning': 'true'
+            }
+        });
         const data = await response.json();
         console.log('Backend health check:', data);
         return true;
