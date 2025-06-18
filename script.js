@@ -628,7 +628,7 @@ function showTransferDetails(transfer) {
     // Set Twitter share
     if (elements.twitterBtn) {
         elements.twitterBtn.onclick = function() {
-            const text = `I just watched ${transfer.walletName} transfer ${transfer.amount.toFixed(2)} SOL from ${(transfer.from)} to ${(transfer.to)} using Ghost Monitor`;
+            const text = `I just watched ${transfer.walletName} transfer ${transfer.amount.toFixed(2)} SOL from ${(transfer.from)} to ${(transfer.to)} using Shadow Tracker`;
             const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
             window.open(url, '_blank');
         };
